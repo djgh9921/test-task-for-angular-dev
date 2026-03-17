@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthenticationService, CredentialsService } from '@app/auth';
@@ -10,13 +10,11 @@ import { AuthenticationService, CredentialsService } from '@app/auth';
   standalone: false,
 })
 export class HeaderComponent implements OnInit {
-  menuHidden = true;
+  private router = inject(Router);
+  private authenticationService = inject(AuthenticationService);
+  private credentialsService = inject(CredentialsService);
 
-  constructor(
-    private router: Router,
-    private authenticationService: AuthenticationService,
-    private credentialsService: CredentialsService
-  ) {}
+  menuHidden = true;
 
   ngOnInit() {}
 

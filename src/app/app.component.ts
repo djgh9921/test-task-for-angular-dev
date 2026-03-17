@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
@@ -19,13 +19,11 @@ const log = new Logger('App');
   standalone: false,
 })
 export class AppComponent implements OnInit, OnDestroy {
-  constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private titleService: Title,
-    private translateService: TranslateService,
-    private i18nService: I18nService
-  ) {}
+  private router = inject(Router);
+  private activatedRoute = inject(ActivatedRoute);
+  private titleService = inject(Title);
+  private translateService = inject(TranslateService);
+  private i18nService = inject(I18nService);
 
   ngOnInit() {
     // Setup logger

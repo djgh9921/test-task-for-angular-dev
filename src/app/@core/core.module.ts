@@ -1,4 +1,4 @@
-import { NgModule, Optional, SkipSelf } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
@@ -29,7 +29,9 @@ import { ErrorHandlerInterceptor } from './http/error-handler.interceptor';
   ],
 })
 export class CoreModule {
-  constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
+  constructor() {
+    const parentModule = inject(CoreModule, { optional: true, skipSelf: true });
+
     // Import guard
     if (parentModule) {
       throw new Error(`${parentModule} has already been loaded. Import Core module in the AppModule only.`);

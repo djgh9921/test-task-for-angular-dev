@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, inject } from '@angular/core';
 
 import { I18nService } from './i18n.service';
 
@@ -9,10 +9,10 @@ import { I18nService } from './i18n.service';
   standalone: false,
 })
 export class LanguageSelectorComponent implements OnInit {
+  private i18nService = inject(I18nService);
+
   @Input() inNavbar = false;
   @Input() menuClass = '';
-
-  constructor(private i18nService: I18nService) {}
 
   ngOnInit() {}
 

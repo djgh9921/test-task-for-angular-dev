@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 
 import { QuoteService } from './quote.service';
@@ -10,10 +10,10 @@ import { QuoteService } from './quote.service';
   standalone: false,
 })
 export class HomeComponent implements OnInit {
+  private quoteService = inject(QuoteService);
+
   quote: string | undefined;
   isLoading = false;
-
-  constructor(private quoteService: QuoteService) {}
 
   ngOnInit() {
     this.isLoading = true;

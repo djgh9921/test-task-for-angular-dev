@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
@@ -17,17 +17,17 @@ const log = new Logger('Login');
   standalone: false,
 })
 export class LoginComponent implements OnInit {
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private formBuilder = inject(UntypedFormBuilder);
+  private authenticationService = inject(AuthenticationService);
+
   version: string | null = environment.version;
   error: string | undefined;
   loginForm!: UntypedFormGroup;
   isLoading = false;
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private formBuilder: UntypedFormBuilder,
-    private authenticationService: AuthenticationService
-  ) {
+  constructor() {
     this.createForm();
   }
 
