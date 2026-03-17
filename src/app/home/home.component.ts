@@ -2,12 +2,14 @@ import { Component, OnInit, inject } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 
 import { QuoteService } from './quote.service';
+import { TranslateDirective } from '@ngx-translate/core';
+import { LoaderComponent } from '../@shared/loader/loader.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  standalone: false,
+  imports: [TranslateDirective, LoaderComponent],
 })
 export class HomeComponent implements OnInit {
   private quoteService = inject(QuoteService);

@@ -4,8 +4,7 @@ import { CommonModule } from '@angular/common';
 import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
-  imports: [CommonModule],
-  declarations: [LoaderComponent],
+  imports: [CommonModule, LoaderComponent],
   exports: [LoaderComponent],
 })
 export class SharedModule {}

@@ -1,13 +1,25 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 import { AuthenticationService, CredentialsService } from '@app/auth';
+import { TranslateDirective } from '@ngx-translate/core';
+import { NgbCollapse, NgbDropdown, NgbDropdownToggle, NgbDropdownMenu } from '@ng-bootstrap/ng-bootstrap';
+import { LanguageSelectorComponent } from '../../i18n/language-selector.component';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  standalone: false,
+  imports: [
+    TranslateDirective,
+    NgbCollapse,
+    RouterLink,
+    RouterLinkActive,
+    LanguageSelectorComponent,
+    NgbDropdown,
+    NgbDropdownToggle,
+    NgbDropdownMenu,
+  ],
 })
 export class HeaderComponent implements OnInit {
   private router = inject(Router);

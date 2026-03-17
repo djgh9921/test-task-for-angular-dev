@@ -1,11 +1,13 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 import { Logger, UntilDestroy, untilDestroyed } from '@core';
 import { AuthenticationService } from './authentication.service';
+import { TranslateDirective, TranslatePipe } from '@ngx-translate/core';
+import { LanguageSelectorComponent } from '../i18n/language-selector.component';
 
 const log = new Logger('Login');
 
@@ -14,7 +16,7 @@ const log = new Logger('Login');
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  standalone: false,
+  imports: [TranslateDirective, LanguageSelectorComponent, ReactiveFormsModule, TranslatePipe],
 })
 export class LoginComponent implements OnInit {
   private router = inject(Router);
