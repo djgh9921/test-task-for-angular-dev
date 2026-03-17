@@ -5,7 +5,7 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { RouterModule } from '@angular/router';
 import { environment } from '@env/environment';
 import { CoreModule } from '@core';
 import { SharedModule } from '@shared';
@@ -13,7 +13,7 @@ import { AuthModule } from '@app/auth';
 import { HomeModule } from './home/home.module';
 import { ShellModule } from './shell/shell.module';
 import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
+import { APP_ROUTES } from './app.routes';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +29,7 @@ import { AppRoutingModule } from './app-routing.module';
     ShellModule,
     HomeModule,
     AuthModule,
-    AppRoutingModule,
+    RouterModule.forRoot(APP_ROUTES),
   ],
   providers: [provideHttpClient(withInterceptorsFromDi())],
 })
