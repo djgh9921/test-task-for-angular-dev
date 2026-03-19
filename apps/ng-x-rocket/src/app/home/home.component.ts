@@ -3,7 +3,7 @@ import { finalize } from 'rxjs/operators';
 
 import { QuoteService } from './quote.service';
 import { TranslateDirective } from '@ngx-translate/core';
-import { LoaderComponent } from '../@shared/loader/loader.component';
+import { LoaderComponent } from '@shared';
 
 @Component({
   selector: 'app-home',

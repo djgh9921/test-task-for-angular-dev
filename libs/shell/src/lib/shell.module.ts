@@ -4,7 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { I18nModule } from '@app/i18n';
+import { I18nModule } from '@i18n';
 import { AuthModule } from '@auth';
 import { ShellComponent } from './shell.component';
 import { HeaderComponent } from './header/header.component';

@@ -8,7 +8,7 @@ import { AuthenticationService, CredentialsService } from '@auth';
 import { MockAuthenticationService } from '@auth/authentication.service.mock';
 import { MockCredentialsService } from '@auth/credentials.service.mock';
 
-import { I18nModule } from '@app/i18n';
+import { I18nModule } from '@i18n';
 import { ShellComponent } from './shell.component';
 import { HeaderComponent } from './header/header.component';
 
