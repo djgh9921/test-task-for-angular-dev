@@ -7,11 +7,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { environment } from '@env/environment';
+import { ENVIRONMENT } from '@core';
 import { CoreModule } from '@core';
 import { SharedModule } from '@shared';
-import { AuthModule } from '@app/auth';
+import { AuthModule } from '@auth';
 import { HomeModule } from './home/home.module';
-import { ShellModule } from './shell/shell.module';
+import { ShellModule } from '@shell';
 import { AppComponent } from './app.component';
 import { APP_ROUTES } from './app.routes';
 
@@ -31,6 +32,6 @@ import { APP_ROUTES } from './app.routes';
     AuthModule,
     RouterModule.forRoot(APP_ROUTES),
   ],
-  providers: [provideHttpClient(withInterceptorsFromDi())],
+  providers: [provideHttpClient(withInterceptorsFromDi()), { provide: ENVIRONMENT, useValue: environment }],
 })
 export class AppModule {}

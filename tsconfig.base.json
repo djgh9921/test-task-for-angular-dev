@@ -15,11 +15,16 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "core": ["libs/core/src/index.ts"],
-      "shared": ["libs/shared/src/index.ts"],
-      "auth": ["libs/auth/src/index.ts"],
-      "i18n": ["libs/i18n/src/index.ts"],
-      "shell": ["libs/shell/src/index.ts"]
+      "@core": ["libs/core/src/index.ts"],
+      "@core/*": ["libs/core/src/lib/*"],
+      "@shared": ["libs/shared/src/index.ts"],
+      "@shared/*": ["libs/shared/src/lib/*"],
+      "@auth": ["libs/auth/src/index.ts"],
+      "@auth/*": ["libs/auth/src/lib/*"],
+      "@i18n": ["libs/i18n/src/index.ts"],
+      "@i18n/*": ["libs/i18n/src/lib/*"],
+      "@shell": ["libs/shell/src/index.ts"],
+      "@shell/*": ["libs/shell/src/lib/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
