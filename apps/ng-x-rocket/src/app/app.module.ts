@@ -15,6 +15,7 @@ import { HomeModule } from './home/home.module';
 import { ShellModule } from '@shell';
 import { AppComponent } from './app.component';
 import { APP_ROUTES } from './app.routes';
+import { WEATHER_BLOCKS, TemperatureBlock, HumidityBlock, WindBlock } from '@weather/ui';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,6 +33,10 @@ import { APP_ROUTES } from './app.routes';
     AuthModule,
     RouterModule.forRoot(APP_ROUTES),
   ],
-  providers: [provideHttpClient(withInterceptorsFromDi()), { provide: ENVIRONMENT, useValue: environment }],
+  providers: [
+    provideHttpClient(withInterceptorsFromDi()),
+    { provide: ENVIRONMENT, useValue: environment },
+    { provide: WEATHER_BLOCKS, useValue: [TemperatureBlock, HumidityBlock, WindBlock] },
+  ],
 })
 export class AppModule {}

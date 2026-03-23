@@ -1,0 +1,25 @@
+<div class="weather-widget">
+  <div class="weather-search">
+    <input type="text" [(ngModel)]="cityInput" placeholder="Enter city name..." class="form-control" />
+    <button class="btn btn-primary" (click)="onSearch()">Search</button>
+  </div>
+
+  @if (store.loading()) {
+    <div class="weather-loading">Loading weather for {{ store.city() }}...</div>
+  }
+  @if (store.error()) {
+    <div class="weather-error">{{ store.error() }}</div>
+  }
+  @if (store.data(); as data) {
+    <div class="weather-city">{{ store.city() }}</div>
+    <div class="weather-blocks">
+      @for (block of blocks; track block.label) {
+        <div class="weather-block">
+          <span class="weather-block__icon">{{ block.icon }}</span>
+          <span class="weather-block__label">{{ block.label }}</span>
+          <span class="weather-block__value">{{ block.getValue(data) }}</span>
+        </div>
+      }
+    </div>
+  }
+</div>
