@@ -1,0 +1,29 @@
+<div class="block-builder">
+  @for (block of blocks(); track block.id; let i = $index) {
+    <div class="block">
+      <span class="block__number">Block #{{ i + 1 }}</span>
+
+      <select
+        class="block__select form-select"
+        [ngModel]="block.selectedKey"
+        (ngModelChange)="updateKey(block.id, $event)"
+      >
+        @for (key of keys(); track key) {
+          <option [value]="key">{{ key }}</option>
+        }
+      </select>
+
+      <span class="block__value">{{ getValue(block.selectedKey) }}</span>
+
+      <div class="block__actions">
+        <button class="btn btn-sm btn-outline-secondary" (click)="moveUp(i)" [disabled]="i === 0">↑</button>
+        <button class="btn btn-sm btn-outline-secondary" (click)="moveDown(i)" [disabled]="i === blocks().length - 1">
+          ↓
+        </button>
+        <button class="btn btn-sm btn-outline-danger" (click)="removeBlock(block.id)">✕</button>
+      </div>
+    </div>
+  }
+
+  <button class="btn btn-primary mt-2" (click)="addBlock()">+ Add block</button>
+</div>

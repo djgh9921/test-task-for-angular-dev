@@ -27,7 +27,8 @@
       "@shell/*": ["libs/shell/src/lib/*"],
       "@weather": ["libs/weather/src/index.ts"],
       "@weather/state": ["libs/weather/state/src/index.ts"],
-      "@weather/ui": ["libs/weather/ui/src/index.ts"]
+      "@weather/ui": ["libs/weather/ui/src/index.ts"],
+      "@block-builder": ["libs/block-builder/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
