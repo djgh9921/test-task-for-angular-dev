@@ -24,6 +24,11 @@ describe('BlockBuilderComponent', () => {
     fixture.detectChanges();
   });
 
+  afterEach(() => {
+    jest.useRealTimers();
+    jest.restoreAllMocks();
+  });
+
   it('creates one block per top-level primitive value', () => {
     expect(component.keys()).toEqual(['name', 'age', 'city']);
     expect(component.blocks()).toHaveLength(3);
@@ -55,5 +60,26 @@ describe('BlockBuilderComponent', () => {
     component.removeBlock(removedId);
     fixture.detectChanges();
     expect(component.blocks().some((block) => block.id === removedId)).toBe(false);
+  });
+
+  it('starts a timer challenge and clears it after the user changes the selected key', () => {
+    jest.useFakeTimers();
+    jest.spyOn(Math, 'random').mockReturnValue(0);
+
+    fixture.componentRef.setInput('challengeEnabled', true);
+    fixture.componentRef.setInput('challengeDelayMs', 10);
+    fixture.detectChanges();
+
+    jest.advanceTimersByTime(10);
+    fixture.detectChanges();
+
+    expect(component.challengeActive()).toBe(true);
+    expect(fixture.nativeElement.textContent).toContain('Timer challenge');
+
+    const challengedBlockId = component.blocks()[0].id;
+    component.updateKey(challengedBlockId, 'age');
+    fixture.detectChanges();
+
+    expect(component.challengeActive()).toBe(false);
   });
 });

@@ -15,7 +15,10 @@
 
     <section class="home-section">
       <h2>Block Builder Demo</h2>
-      <lib-block-builder [data]="blockBuilderDemoData"></lib-block-builder>
+      <p class="home-section__description">
+        After one minute the demo will highlight a random select. Change its value to complete the timer challenge.
+      </p>
+      <lib-block-builder [data]="blockBuilderDemoData" [challengeEnabled]="true"></lib-block-builder>
     </section>
   </div>
 </div>

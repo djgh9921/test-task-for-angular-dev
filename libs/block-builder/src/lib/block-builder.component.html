@@ -1,10 +1,17 @@
 <div class="block-builder">
+  @if (challengeActive()) {
+    <div class="block-builder__challenge">
+      Timer challenge: one select was chosen at random. Change its value to continue.
+    </div>
+  }
+
   @for (block of blocks(); track block.id; let i = $index) {
-    <div class="block">
+    <div class="block" [class.block--challenge]="isChallengeBlock(block.id)">
       <span class="block__number">Block #{{ i + 1 }}</span>
 
       <select
         class="block__select form-select"
+        [class.block__select--challenge]="isChallengeBlock(block.id)"
         [ngModel]="block.selectedKey"
         (ngModelChange)="updateKey(block.id, $event)"
       >

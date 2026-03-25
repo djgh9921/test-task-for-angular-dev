@@ -5,6 +5,15 @@
   padding: 1rem;
 }
 
+.block-builder__challenge {
+  padding: 0.75rem 1rem;
+  border: 1px solid #f59f00;
+  background: #fff3bf;
+  border-radius: 8px;
+  color: #5f3c00;
+  font-weight: 500;
+}
+
 .block {
   display: flex;
   align-items: center;
@@ -12,6 +21,11 @@
   padding: 0.5rem;
   background: #f8f9fa;
   border-radius: 8px;
+}
+
+.block--challenge {
+  border: 1px solid #f59f00;
+  background: #fff8db;
 }
 
 .block__number {
@@ -23,6 +37,11 @@
 
 .block__select {
   width: 150px;
+}
+
+.block__select--challenge {
+  border-color: #f59f00;
+  box-shadow: 0 0 0 0.2rem rgba(245, 159, 0, 0.15);
 }
 
 .block__value {
