@@ -1,19 +1,31 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WeatherStore } from '@weather/state';
+import { BlockBuilderComponent, FlatObject } from '@block-builder';
+import { WeatherStore } from '../../../../state/src/lib/weather.store';
 import { WEATHER_BLOCKS } from '../weather-block.token';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-weather-widget',
+  selector: 'lib-weather-widget',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, BlockBuilderComponent],
   templateUrl: 'weather-widget.component.html',
   styleUrls: ['weather-widget.component.scss'],
 })
 export class WeatherWidgetComponent implements OnInit {
   readonly store = inject(WeatherStore);
   readonly blocks = inject(WEATHER_BLOCKS);
+  readonly blockData = computed<FlatObject>(() => {
+    const data = this.store.data();
+    if (!data) {
+      return {};
+    }
+
+    return this.blocks.reduce<FlatObject>((acc, block) => {
+      acc[block.label] = block.getValue(data);
+      return acc;
+    }, {});
+  });
   cityInput = '';
 
   ngOnInit() {

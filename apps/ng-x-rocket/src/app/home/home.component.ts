@@ -16,7 +16,7 @@ import { BlockBuilderComponent } from '@block-builder';
 export class HomeComponent implements OnInit {
   private quoteService = inject(QuoteService);
 
-  readonly blockBuilderData = {
+  readonly blockBuilderDemoData = {
     name: 'John',
     age: 30,
     city: 'New York',

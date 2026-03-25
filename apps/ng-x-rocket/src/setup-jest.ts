@@ -1,4 +1,9 @@
-import 'jest-preset-angular';
+import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/zone';
+
+setupZoneTestEnv({
+  errorOnUnknownElements: true,
+  errorOnUnknownProperties: true,
+});
 
 /* global mocks for jsdom */
 const storageMock = () => {

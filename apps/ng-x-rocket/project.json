@@ -89,16 +89,15 @@
       }
     },
     "test": {
-      "executor": "@angular-builders/jest:run",
+      "executor": "@nx/jest:jest",
       "options": {
-        "watch": true
+        "jestConfig": "apps/ng-x-rocket/jest.config.js",
+        "passWithNoTests": false
       },
       "configurations": {
         "ci": {
-          "watch": false,
           "ci": true,
-          "coverage": true,
-          "silent": true
+          "codeCoverage": true
         }
       }
     },

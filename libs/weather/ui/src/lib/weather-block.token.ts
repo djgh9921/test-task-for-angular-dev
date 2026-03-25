@@ -1,5 +1,5 @@
 import { InjectionToken } from '@angular/core';
-import { WeatherData } from '@weather/state';
+import { WeatherData } from '../../../state/src/lib/weather.models';
 
 export interface WeatherBlock {
   label: string;

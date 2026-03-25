@@ -4,9 +4,18 @@
       <img class="logo" src="assets/ngx-rocket-logo.png" alt="angular logo" />
       <span translate>Hello world !</span>
     </h1>
-    <app-weather-widget></app-weather-widget>
+
     <app-loader [isLoading]="isLoading"></app-loader>
     <q [hidden]="isLoading">{{ quote }}</q>
-    <lib-block-builder [data]="blockBuilderData"></lib-block-builder>
+
+    <section class="home-section">
+      <h2>Weather Widget</h2>
+      <lib-weather-widget></lib-weather-widget>
+    </section>
+
+    <section class="home-section">
+      <h2>Block Builder Demo</h2>
+      <lib-block-builder [data]="blockBuilderDemoData"></lib-block-builder>
+    </section>
   </div>
 </div>
