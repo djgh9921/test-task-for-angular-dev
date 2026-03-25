@@ -4,9 +4,21 @@
       <img class="logo" src="assets/ngx-rocket-logo.png" alt="angular logo" />
       <span translate>Hello world !</span>
     </h1>
-    <app-weather-widget></app-weather-widget>
+
     <app-loader [isLoading]="isLoading"></app-loader>
     <q [hidden]="isLoading">{{ quote }}</q>
-    <lib-block-builder [data]="blockBuilderData"></lib-block-builder>
+
+    <section class="home-section">
+      <h2>Weather Widget</h2>
+      <lib-weather-widget></lib-weather-widget>
+    </section>
+
+    <section class="home-section">
+      <h2>Block Builder Demo</h2>
+      <p class="home-section__description">
+        After one minute the demo will highlight a random select. Change its value to complete the timer challenge.
+      </p>
+      <lib-block-builder [data]="blockBuilderDemoData" [challengeEnabled]="true"></lib-block-builder>
+    </section>
   </div>
 </div>

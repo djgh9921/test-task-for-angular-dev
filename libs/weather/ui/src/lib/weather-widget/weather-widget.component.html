@@ -12,14 +12,6 @@
   }
   @if (store.data(); as data) {
     <div class="weather-city">{{ store.city() }}</div>
-    <div class="weather-blocks">
-      @for (block of blocks; track block.label) {
-        <div class="weather-block">
-          <span class="weather-block__icon">{{ block.icon }}</span>
-          <span class="weather-block__label">{{ block.label }}</span>
-          <span class="weather-block__value">{{ block.getValue(data) }}</span>
-        </div>
-      }
-    </div>
+    <lib-block-builder [data]="blockData()"></lib-block-builder>
   }
 </div>

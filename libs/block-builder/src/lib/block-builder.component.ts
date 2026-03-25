@@ -1,4 +1,4 @@
-import { Component, input, signal, computed, OnChanges } from '@angular/core';
+import { Component, input, signal, computed, OnChanges, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FlatObject, Block } from './block-builder.models';
@@ -11,12 +11,19 @@ import { flattenObject } from './block-builder.utils';
   templateUrl: './block-builder.component.html',
   styleUrls: ['./block-builder.component.scss'],
 })
-export class BlockBuilderComponent implements OnChanges {
+export class BlockBuilderComponent implements OnChanges, OnDestroy {
   readonly data = input.required<Record<string, unknown>>();
+  readonly challengeEnabled = input(false);
+  readonly challengeDelayMs = input(60000);
 
   readonly flatData = signal<FlatObject>({});
   readonly keys = computed(() => Object.keys(this.flatData()));
   readonly blocks = signal<Block[]>([]);
+  readonly challengeBlockId = signal<string | null>(null);
+  readonly challengeInitialKey = signal<string | null>(null);
+  readonly challengeActive = computed(() => this.challengeBlockId() !== null);
+
+  private challengeTimerId: ReturnType<typeof setTimeout> | null = null;
 
   ngOnChanges() {
     const flat = flattenObject(this.data());
@@ -29,6 +36,13 @@ export class BlockBuilderComponent implements OnChanges {
         selectedKey: key,
       })),
     );
+
+    this.resetChallenge();
+    this.scheduleChallenge();
+  }
+
+  ngOnDestroy() {
+    this.clearChallengeTimer();
   }
 
   getValue(key: string): string {
@@ -37,10 +51,20 @@ export class BlockBuilderComponent implements OnChanges {
 
   updateKey(blockId: string, newKey: string) {
     this.blocks.update((blocks) => blocks.map((b) => (b.id === blockId ? { ...b, selectedKey: newKey } : b)));
+
+    if (this.challengeBlockId() === blockId && this.challengeInitialKey() !== newKey) {
+      this.resetChallenge();
+      this.scheduleChallenge();
+    }
   }
 
   removeBlock(blockId: string) {
     this.blocks.update((blocks) => blocks.filter((b) => b.id !== blockId));
+
+    if (this.challengeBlockId() === blockId) {
+      this.resetChallenge();
+      this.scheduleChallenge();
+    }
   }
 
   addBlock() {
@@ -65,5 +89,42 @@ export class BlockBuilderComponent implements OnChanges {
       [arr[index], arr[index + 1]] = [arr[index + 1], arr[index]];
       return arr;
     });
+  }
+
+  isChallengeBlock(blockId: string): boolean {
+    return this.challengeBlockId() === blockId;
+  }
+
+  private scheduleChallenge() {
+    this.clearChallengeTimer();
+
+    if (!this.challengeEnabled() || this.blocks().length === 0) {
+      return;
+    }
+
+    this.challengeTimerId = setTimeout(() => {
+      const blocks = this.blocks();
+      if (!blocks.length) {
+        return;
+      }
+
+      const randomBlock = blocks[Math.floor(Math.random() * blocks.length)];
+      this.challengeBlockId.set(randomBlock.id);
+      this.challengeInitialKey.set(randomBlock.selectedKey);
+      this.challengeTimerId = null;
+    }, this.challengeDelayMs());
+  }
+
+  private resetChallenge() {
+    this.clearChallengeTimer();
+    this.challengeBlockId.set(null);
+    this.challengeInitialKey.set(null);
+  }
+
+  private clearChallengeTimer() {
+    if (this.challengeTimerId !== null) {
+      clearTimeout(this.challengeTimerId);
+      this.challengeTimerId = null;
+    }
   }
 }
